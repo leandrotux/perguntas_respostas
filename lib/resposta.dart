@@ -8,7 +8,7 @@ class Resposta extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RaisedButton(
-      child: Resposta(texto),
+      child: Text(texto),
       onPressed: null,
     );
   }
