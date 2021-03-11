@@ -30,11 +30,8 @@ class _QuestionAppState extends State<QuestionApp> {
       }
     ];
 
-    List<Widget> answers = [];
+    List<String> answers = questions[selectedQuestion]["answers"];
 
-    for (String textReplay in questions[selectedQuestion]["answers"]) {
-      answers.add(Answer(textReplay, _replay));
-    }
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
@@ -43,7 +40,7 @@ class _QuestionAppState extends State<QuestionApp> {
         body: Column(
           children: <Widget>[
             Question(questions[selectedQuestion]["text"]),
-            ...answers,
+            ...answers.map((t) => Answer(t, _replay)).toList(),
           ],
         ),
       ),
