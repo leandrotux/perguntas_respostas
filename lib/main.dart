@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:projeto_perguntas/question.dart';
-import 'package:projeto_perguntas/Answer.dart';
+import './Result.dart';
+import './Questions.dart';
 
 main() => runApp(QuestionApp());
 
@@ -10,15 +10,30 @@ class _QuestionAppState extends State<QuestionApp> {
   final _questions = const [
     {
       "text": "Qual é sua cor favorita?",
-      "answers": ["Preto", "Vermelho", "Verde", "Branco"],
+      "answers": [
+        {"text": "Preto", "score": 10},
+        {"text": "Vermelho", "score": 8},
+        {"text": "Verde", "score": 5},
+        {"text": "Branco", "score": 1}
+      ],
     },
     {
       "text": "Qual o seu aninal favorito?",
-      "answers": ["Coelho", "Cobra", "Elefante", "Leão"],
+      "answers": [
+        {"text": "Coelho", "score": 2},
+        {"text": "Cobra", "score": 3},
+        {"text": "Elefante", "score": 6},
+        {"text": "Leão", "score": 9},
+      ],
     },
     {
       "text": "Qual o seu instrutor favorito?",
-      "answers": ["Maria", "João", "Leo", "Pedro"],
+      "answers": [
+        {"text": "Maria", "score": 5},
+        {"text": "João", "score": 9},
+        {"text": "Leo", "score": 10},
+        {"text": "Pedro", "score": 6}
+      ],
     }
   ];
 
@@ -36,30 +51,18 @@ class _QuestionAppState extends State<QuestionApp> {
 
   @override
   Widget build(BuildContext context) {
-    List<String> answers =
-        hasSelectedQuestion ? _questions[_selectedQuestion]["answers"] : null;
-
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
           title: Text("Perguntas"),
         ),
         body: hasSelectedQuestion
-            ? Column(
-                children: <Widget>[
-                  Question(_questions[_selectedQuestion]["text"]),
-                  ...answers.map((t) => Answer(t, _replay)).toList(),
-                ],
+            ? Questions(
+                questions: _questions,
+                selectedQuestion: _selectedQuestion,
+                replay: _replay,
               )
-            : Center(
-                child: Text(
-                  "Parabéns!!!",
-                  style: TextStyle(
-                    fontSize: 30,
-                    color: Colors.blue,
-                  ),
-                ),
-              ),
+            : Result(),
       ),
     );
   }
