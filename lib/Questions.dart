@@ -5,7 +5,7 @@ import './Answer.dart';
 class Questions extends StatelessWidget {
   final List<Map<String, Object>> questions;
   final int selectedQuestion;
-  final void Function() replay;
+  final void Function(int) replay;
 
   Questions({
     @required this.questions,
@@ -25,7 +25,9 @@ class Questions extends StatelessWidget {
     return Column(
       children: <Widget>[
         Question(questions[selectedQuestion]["text"]),
-        ...answers.map((resText) => Answer(resText["text"], replay)).toList(),
+        ...answers.map((resText) {
+          return Answer(resText["text"], () => replay(resText["score"]));
+        }).toList(),
       ],
     );
   }

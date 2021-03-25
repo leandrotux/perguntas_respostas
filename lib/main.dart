@@ -6,7 +6,7 @@ main() => runApp(QuestionApp());
 
 class _QuestionAppState extends State<QuestionApp> {
   var _selectedQuestion = 0;
-
+  var _scoreAll = 0;
   final _questions = const [
     {
       "text": "Qual é sua cor favorita?",
@@ -37,12 +37,20 @@ class _QuestionAppState extends State<QuestionApp> {
     }
   ];
 
-  void _replay() {
+  void _replay(int score) {
     if (hasSelectedQuestion) {
       setState(() {
         _selectedQuestion++;
+        _scoreAll += score;
       });
     }
+  }
+
+  void _resetQuestions() {
+    setState(() {
+      _selectedQuestion = 0;
+      _scoreAll = 0;
+    });
   }
 
   bool get hasSelectedQuestion {
@@ -62,7 +70,7 @@ class _QuestionAppState extends State<QuestionApp> {
                 selectedQuestion: _selectedQuestion,
                 replay: _replay,
               )
-            : Result(),
+            : Result(_scoreAll, _resetQuestions),
       ),
     );
   }
